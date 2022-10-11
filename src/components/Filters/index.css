@@ -1,0 +1,13 @@
+.fil-cont {
+  background-image: url('https://assets.ccbp.in/frontend/react-js/profile-bg.png');
+  background-size: cover;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-radius: 20px;
+  padding: 20px;
+  margin-left: 60px;
+  margin-top: 40px;
+}

@@ -1,0 +1,28 @@
+.login-form-container {
+  height: 100vh;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-container {
+  background-color: #272727;
+  height: 50vh;
+  padding: 30px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.login-img {
+  height: 30px;
+  width: 100px;
+}
+.login-button {
+  background-color: #4f46e5;
+  color: white;
+  padding: 9px;
+  border: 0px;
+  border-radius: 5px;
+}

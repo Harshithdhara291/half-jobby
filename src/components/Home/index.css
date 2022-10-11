@@ -1,0 +1,9 @@
+.home-container {
+  background-image: url('https://assets.ccbp.in/frontend/react-js/home-lg-bg.png');
+  background-size: cover;
+  height: 88vh;
+  padding: 30px;
+}
+.text {
+  color: azure;
+}

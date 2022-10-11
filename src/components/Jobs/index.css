@@ -1,0 +1,7 @@
+.jobs-sections {
+  background-color: black;
+  min-height: 88vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
