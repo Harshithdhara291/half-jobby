@@ -1,11 +1,13 @@
+.link-item {
+  text-decoration: none;
+}
 .li-item {
   background-color: #202020;
   list-style-type: none;
-  margin: 15px;
   width: 800px;
   padding: 18px;
-  margin-right: 50px;
   border-radius: 15px;
+  margin: 20px;
 }
 .cont {
   display: flex;

@@ -1,0 +1,65 @@
+.jobs-sections1 {
+  background-color: black;
+  min-height: 88vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
+.li-item1 {
+  background-color: #202020;
+  list-style-type: none;
+  padding: 30px;
+  border-radius: 15px;
+  margin: 80px;
+}
+.li-item2 {
+  display: flex;
+  flex-direction: row;
+  background-color: #202020;
+  list-style-type: none;
+  border-radius: 15px;
+  width: 200px;
+  flex-wrap: wrap;
+}
+.life-comp {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.visit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  color: #4f46e5;
+  font-size: 20px;
+  text-decoration: none;
+}
+.desc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.life-comp1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.u-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+.similar-products-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}

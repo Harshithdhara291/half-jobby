@@ -1,0 +1,29 @@
+.search-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.search-box {
+  margin-left: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+.search-icon {
+  padding: 8px;
+}
+.icon {
+  background-color: #202020;
+  color: antiquewhite;
+  padding: 7px;
+  margin: auto;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}

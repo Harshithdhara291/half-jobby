@@ -1,6 +1,8 @@
 import {Component} from 'react'
+import {Link} from 'react-router-dom'
 import Loader from 'react-loader-spinner'
 import Cookies from 'js-cookie'
+import {BsSearch} from 'react-icons/bs'
 
 import JobItem from '../JobItem'
 import './index.css'
@@ -9,6 +11,8 @@ class AllJobs extends Component {
   state = {
     jobsList: [],
     isLoading: false,
+    fail: false,
+    searchInput: '',
   }
 
   componentDidMount() {
@@ -19,8 +23,9 @@ class AllJobs extends Component {
     this.setState({
       isLoading: true,
     })
+    const {searchInput} = this.state
     const jwtToken = Cookies.get('jwt_token')
-    const apiUrl = 'https://apis.ccbp.in/jobs'
+    const apiUrl = `https://apis.ccbp.in/jobs?search=${searchInput}`
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -44,22 +49,68 @@ class AllJobs extends Component {
         jobsList: updatedData,
         isLoading: false,
       })
+    } else {
+      this.setState({fail: true})
     }
   }
 
+  updateSearch = () => {
+    const {searchInput} = this.state
+    this.setState({searchInput}, this.getJobs)
+  }
+
+  onChangeSearch = event => {
+    this.setState({searchInput: event.target.value})
+  }
+
+  renderJobsList1 = () => {
+    const {fail} = this.state
+
+    return fail ? this.renderFailureView() : this.renderJobsList()
+  }
+
   renderJobsList = () => {
-    const {jobsList} = this.state
+    const {jobsList, searchInput} = this.state
     return (
       <>
-        <h1 className="products-list-heading">search bar</h1>
-        <ul className="un-list">
-          {jobsList.map(job => (
-            <JobItem job={job} key={job.id} />
-          ))}
-        </ul>
+        <div className="search-list">
+          <div className="search-box">
+            <input
+              type="search"
+              placeholder="Search"
+              className="search-icon"
+              value={searchInput}
+              onChange={this.onChangeSearch}
+            />
+            <button type="button" className="icon" onClick={this.updateSearch}>
+              <BsSearch />
+            </button>
+          </div>
+          <ul className="un-list">
+            {jobsList.map(job => (
+              <JobItem job={job} key={job.id} />
+            ))}
+          </ul>
+        </div>
       </>
     )
   }
+
+  renderFailureView = () => (
+    <div className="product-details-failure-view-container">
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
+        alt="failure view"
+        className="failure-view-image"
+      />
+      <h1 className="product-not-found-heading">Oops! Something Went Wrong</h1>
+      <Link to="/jobs">
+        <button type="button" className="button">
+          Retry
+        </button>
+      </Link>
+    </div>
+  )
 
   renderLoader = () => (
     <div className="products-loader-container">
@@ -69,7 +120,7 @@ class AllJobs extends Component {
 
   render() {
     const {isLoading} = this.state
-    return isLoading ? this.renderLoader() : this.renderJobsList()
+    return isLoading ? this.renderLoader() : this.renderJobsList1()
   }
 }
 
