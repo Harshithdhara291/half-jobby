@@ -3,12 +3,13 @@ import {HiLocationMarker} from 'react-icons/hi'
 import './index.css'
 
 const SimilarJobItem = props => {
-  const {each} = props
+  const {each, key} = props
   const {
     companyLogoUrl,
     employmentType,
     jobDescription,
     location,
+    id,
     rating,
     title,
   } = each
@@ -17,9 +18,13 @@ const SimilarJobItem = props => {
     <li className="li-item">
       <div>
         <div className="cont-1">
-          <img src={companyLogoUrl} alt="company logo" className="logo" />
+          <img
+            src={companyLogoUrl}
+            alt="similar job company logo"
+            className="logo"
+          />
           <div className="column">
-            <p className="text1">{title}</p>
+            <h1 className="text1">{title}</h1>
             <div className="rating">
               <BsStar className="star" />
               <p className="text">{rating}</p>
@@ -40,7 +45,7 @@ const SimilarJobItem = props => {
         </div>
         <hr />
         <div className="cont-3">
-          <p className="text2">Description</p>
+          <h1 className="text2">Description</h1>
           <p className="text3">{jobDescription}</p>
         </div>
       </div>

@@ -13,6 +13,8 @@ class AllJobs extends Component {
     isLoading: false,
     fail: false,
     searchInput: '',
+    employmentType: '',
+    minimumPackage: '',
   }
 
   componentDidMount() {
@@ -23,9 +25,9 @@ class AllJobs extends Component {
     this.setState({
       isLoading: true,
     })
-    const {searchInput} = this.state
+    const {searchInput, employmentType, minimumPackage} = this.state
     const jwtToken = Cookies.get('jwt_token')
-    const apiUrl = `https://apis.ccbp.in/jobs?search=${searchInput}`
+    const apiUrl = `https://apis.ccbp.in/jobs?employment_type=${employmentType}&minimum_package=${minimumPackage}&search=${searchInput}`
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -56,7 +58,9 @@ class AllJobs extends Component {
 
   updateSearch = () => {
     const {searchInput} = this.state
-    this.setState({searchInput}, this.getJobs)
+    if (searchInput !== '') {
+      this.setState({searchInput}, this.getJobs)
+    }
   }
 
   onChangeSearch = event => {
@@ -69,8 +73,33 @@ class AllJobs extends Component {
     return fail ? this.renderFailureView() : this.renderJobsList()
   }
 
+  renderNoJobs = () => (
+    <div>
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/no-jobs-img.png"
+        alt="no jobs"
+      />
+      <h1 className="text2">No Jobs Found</h1>
+      <p className="text2">We could not find any jobs. Try other filters</p>
+    </div>
+  )
+
+  renderList = () => {
+    const {jobsList} = this.state
+    return (
+      <div>
+        <ul className="un-list">
+          {jobsList.map(job => (
+            <JobItem job={job} key={job.id} />
+          ))}
+        </ul>
+      </div>
+    )
+  }
+
   renderJobsList = () => {
     const {jobsList, searchInput} = this.state
+    const jobsListLength = jobsList.length === 0
     return (
       <>
         <div className="search-list">
@@ -86,11 +115,7 @@ class AllJobs extends Component {
               <BsSearch />
             </button>
           </div>
-          <ul className="un-list">
-            {jobsList.map(job => (
-              <JobItem job={job} key={job.id} />
-            ))}
-          </ul>
+          {jobsListLength ? this.renderNoJobs() : this.renderList()}
         </div>
       </>
     )
@@ -104,7 +129,8 @@ class AllJobs extends Component {
         className="failure-view-image"
       />
       <h1 className="product-not-found-heading">Oops! Something Went Wrong</h1>
-      <Link to="/jobs">
+      <p>We cannot seem to find the page you are looking for</p>
+      <Link to="https://apis.ccbp.in/jobs">
         <button type="button" className="button">
           Retry
         </button>

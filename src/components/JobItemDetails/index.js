@@ -129,21 +129,29 @@ class ProductItemDetails extends Component {
     </div>
   )
 
-  renderFailureView = () => (
-    <div className="product-details-failure-view-container">
-      <img
-        src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
-        alt="failure view"
-        className="failure-view-image"
-      />
-      <h1 className="product-not-found-heading">Oops! Something Went Wrong</h1>
-      <Link to="/jobs">
-        <button type="button" className="button">
-          Retry
-        </button>
-      </Link>
-    </div>
-  )
+  renderFailureView = () => {
+    const {match} = this.props
+    const {params} = match
+    const {id} = params
+    return (
+      <div className="product-details-failure-view-container">
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
+          alt="failure view"
+          className="failure-view-image"
+        />
+        <h1 className="product-not-found-heading">
+          Oops! Something Went Wrong
+        </h1>
+        <p>We cannot seem to find the page you are looking for.</p>
+        <Link to={`/jobs/${id}`}>
+          <button type="button" className="button">
+            Retry
+          </button>
+        </Link>
+      </div>
+    )
+  }
 
   renderJobDetailsView = () => {
     const {jobsData, similarJobsData} = this.state
@@ -166,32 +174,36 @@ class ProductItemDetails extends Component {
         <div className="li-item1">
           <div>
             <div className="cont-1">
-              <img src={companyLogoUrl} alt="company logo" className="logo" />
+              <img
+                src={companyLogoUrl}
+                alt="job details company logo"
+                className="logo"
+              />
               <div className="column">
-                <p className="text1">{title}</p>
+                <h1 className="text1">{title}</h1>
                 <div className="rating">
                   <BsStar className="star" />
                   <p className="text">{rating}</p>
                 </div>
               </div>
             </div>
-            <div className="cont-2">
+            <ul className="cont-2">
               <div className="cont">
-                <div className="cont">
+                <li className="cont">
                   <HiLocationMarker className="icon" />
                   <p className="text2">{location}</p>
-                </div>
-                <div className="cont">
+                </li>
+                <li className="cont">
                   <BsFillBriefcaseFill className="icon" />
                   <p className="text2">{employmentType}</p>
-                </div>
+                </li>
               </div>
               <p className="text2">{packagePerAnnum}</p>
-            </div>
+            </ul>
             <hr />
             <div className="cont-3">
               <div className="desc">
-                <p className="text2">Description</p>
+                <h1 className="text2">Description</h1>
                 <a
                   href={companyWebsiteUrl}
                   className="visit"

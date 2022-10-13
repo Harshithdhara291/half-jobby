@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 import './index.css'
@@ -43,7 +44,7 @@ const salaryRangesList = [
 ]
 
 class Filters extends Component {
-  state = {userData: {}, isLoading: true}
+  state = {userData: {}, isLoading: true, fail: false}
 
   componentDidMount() {
     this.renderUserProfile()
@@ -77,7 +78,31 @@ class Filters extends Component {
         userData: updatedData,
         isLoading: false,
       })
+    } else {
+      this.setState({fail: true})
     }
+  }
+
+  renderFailureView = () => (
+    <div className="product-details-failure-view-container">
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
+        alt="failure view"
+        className="failure-view-image"
+      />
+      <h1 className="product-not-found-heading">Oops! Something Went Wrong</h1>
+      <p>We cannot seem to find the page you are looking for</p>
+      <Link to="https://apis.ccbp.in/profile">
+        <button type="button" className="button">
+          Retry
+        </button>
+      </Link>
+    </div>
+  )
+
+  renderHandling = () => {
+    const {fail} = this.state
+    return fail ? this.renderFailureView() : this.renderUserDetails()
   }
 
   renderUserDetails = () => {
@@ -91,10 +116,10 @@ class Filters extends Component {
             <p>{userData.shortBio}</p>
           </div>
         </div>
-        <hr />
+        <hr className="hr" />
         <div className="cont3">
           <div>
-            <h1 className="text2">Types of Employment</h1>
+            <h1 className="text2">Type of Employment</h1>
             <ul className="ul">
               {employmentTypesList.map(each => (
                 <li className="lii">
@@ -106,7 +131,7 @@ class Filters extends Component {
               ))}
             </ul>
           </div>
-          <hr />
+          <hr className="hr" />
 
           <div>
             <h1 className="text2">Salary Range</h1>
@@ -128,7 +153,7 @@ class Filters extends Component {
 
   render() {
     const {isLoading} = this.state
-    return isLoading ? this.renderLoader() : this.renderUserDetails()
+    return isLoading ? this.renderLoader() : this.renderHandling()
   }
 }
 
